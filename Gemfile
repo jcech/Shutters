@@ -9,7 +9,7 @@ gem 'turbolinks'
 gem 'bcrypt-ruby'
 gem 'paperclip'
 gem 'bootstrap-sass'
-
+gem 'pry'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
