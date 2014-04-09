@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: shutters_development
+
+test:
+  adapter: postgresql
+  database: shutters_test

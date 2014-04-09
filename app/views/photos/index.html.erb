@@ -1,0 +1,13 @@
+<% content_for(:title, "All Photos || Shutters" ) %>
+
+<h1>Photos</h1>
+
+<div id='user_header'>
+  <% if current_user %>
+    Hello <b><%= current_user.username %></b>.
+    <%= link_to "Log Out", session_path("current"), method: "delete" %>
+  <% else %>
+    <%= link_to "Sign Up", signup_path %> or
+    <%= link_to "Log In", login_path %>
+  <% end %>
+</div>
