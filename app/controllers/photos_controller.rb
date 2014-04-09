@@ -1,9 +1,13 @@
 class PhotosController < ApplicationController
 
-  before_filter :authorize, only: [:new, :show]
+  before_filter :authorize, only: [:new, :show, :index]
 
   def index
-    @photos = Photo.all
+    if params[:tagged]
+      @photos = Photo.tagged(current_user.id)
+    else
+      @photos = Photo.where(:user_id => current_user.id)
+    end
   end
 
   def show

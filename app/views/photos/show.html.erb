@@ -1,7 +1,21 @@
 <% content_for(:title, "View Photo || Shutters") %>
 
 <h3 class="jumbotron">Photo</h3>
+<p><%= link_to 'Photo Menu', photos_path, :class => 'btn btn-info' %>
+  <%= form_for Tag.new, :url => tags_path do |f| %>
+
+    <%= f.hidden_field :photo_id, :value => @photo.id %>
+
+    <%= f.select "user_id", options_for_select(User.all.collect{ |u| [u.username, u.id]}), :include_blank => true  %>
+
+    <%= f.submit "Tag a user to the photo" %>
+    <% end %>
+</p>
 
 <p><%= image_tag @photo.image.url %></p>
-
-<%= link_to "Delete Photo", photo_path(@photo), method: "delete" %>
+<p>Users in this photo: <% @photo.tags.each do |tag| %>
+  <%= tag.user.username %>
+<% end %></p>
+<% if @photo.user_id == current_user.id %>
+  <%= link_to "Delete Photo", photo_path(@photo), method: "delete", :class => 'btn btn-danger'%>
+<% end %>

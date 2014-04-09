@@ -2,7 +2,7 @@
 
 <h1 class="jumbotron">Photos</h1>
 
-<p><%= link_to "New Photo", new_photo_path, :class => 'btn btn-warning' %></p>
+<p><%= link_to "New Photo", new_photo_path, :class => 'btn btn-warning' %> <%= link_to "My Photos", photos_path, :class => 'btn btn-success' %> <%= link_to "Photos of Me", photos_path(:tagged => true), :class => 'btn btn-info' %></p>
 
 <p><% @photos.each do |photo| %>
   <%= link_to image_tag(photo.image.url(:medium)), photo_path(photo) %>

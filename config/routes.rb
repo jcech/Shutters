@@ -4,9 +4,9 @@ Shutters::Application.routes.draw do
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
 
-  resources :photos
-  resources :users
-  resources :sessions
-
+  resources :photos, :except => [:edit, :update]
+  resources :users, :only => [:new, :create]
+  resources :sessions, :only => [:new, :create, :destroy]
+  resources :tags, :only => :create
   root to: 'photos#index'
 end
