@@ -12,3 +12,12 @@
  *= require bootstrap
  *= require_tree .
  */
+
+.jumbotron {
+  width: 60%;
+}
+
+#user_header {
+  text-align: right;
+  margin: 10px 10px auto auto;
+}

@@ -1,0 +1,7 @@
+<% content_for(:title, "View Photo || Shutters") %>
+
+<h3 class="jumbotron">Photo</h3>
+
+<p><%= image_tag @photo.image.url %></p>
+
+<%= link_to "Delete Photo", photo_path(@photo), method: "delete" %>
