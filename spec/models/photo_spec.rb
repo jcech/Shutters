@@ -31,10 +31,24 @@ describe Photo do
       photo1 = create(:photo, :user_id => user1.id)
       photo2 = create(:photo, :user_id => user1.id)
       photo3 = create(:photo, :user_id => user1.id)
+      favorite = create(:favorite, :user_id => user1.id, :photo_id => photo1.id)
+      tag = create(:tag, :user_id => user2.id, :photo_id => photo1.id)
+      tag = create(:tag, :user_id => user2.id, :photo_id => photo2.id)
+      tag = create(:tag, :user_id => user2.id, :photo_id => photo3.id)
+      Photo.recommended(user1.id).should eq [photo2, photo3]
+    end
 
+    it 'will return all photos tagged with users who are also in pics the user has created' do
+      user1 = create(:user, :username => "Harold")
+      user2 = create(:user, :username => "Raekwon")
+      photo1 = create(:photo, :user_id => user1.id)
+      photo2 = create(:photo, :user_id => user2.id)
+      photo3 = create(:photo, :user_id => user2.id)
 
-      favorite = create(:favorite, :user_id => user.id, :photo_id => photo.id)
-      Photo.favorited(user.id).should eq [photo]
+      tag = create(:tag, :user_id => user2.id, :photo_id => photo1.id)
+      tag = create(:tag, :user_id => user2.id, :photo_id => photo2.id)
+      tag = create(:tag, :user_id => user2.id, :photo_id => photo3.id)
+      Photo.recommended(user1.id).should eq [photo2, photo3]
     end
   end
 end

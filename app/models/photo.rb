@@ -29,6 +29,54 @@ class Photo < ActiveRecord::Base
   end
 
   def self.recommended(user_id)
+    favorite_recommendations = self.favorite_recommended(user_id)
+    user_recommendations = self.user_photos_recommended(user_id)
 
+    favorite_recommendations + user_recommendations
+  end
+
+  private
+
+  def self.user_photos_recommended(user_id)
+    user_photos = User.find(user_id).photos
+    friends = self.get_friends(user_photos, user_id)
+
+    photos = self.get_friends_pictures(friends)
+
+    photos - user_photos
+  end
+
+  def self.favorite_recommended(user_id)
+    photos = []
+    favorites = self.favorited(user_id)
+    friends = self.get_friends(favorites, user_id)
+
+    friends.each do |friend|
+      self.tagged(friend.id).each do |photo|
+        photos << photo
+      end
+    end
+    photos - favorites
+  end
+
+  def self.get_friends_pictures(friends)
+    photos = []
+    friends.each do |friend|
+      self.tagged(friend.id).each do |photo|
+        photos << photo
+      end
+    end
+    photos
+  end
+
+  def self.get_friends(pictures, user_id)
+    friends = []
+
+    pictures.each do |picture|
+      picture.tags.each do |tag|
+        friends << tag.user
+      end
+    end
+    friends - [User.find(user_id)]
   end
 end
