@@ -31,31 +31,31 @@ class Photo < ActiveRecord::Base
   def self.recommended(user_id)
     favorite_recommendations = self.favorite_recommended(user_id)
     user_recommendations = self.user_photos_recommended(user_id)
+    tagged_recommendations = self.tagged_recommended(user_id)
 
-    favorite_recommendations + user_recommendations
+    (favorite_recommendations + user_recommendations + tagged_recommendations).uniq
   end
 
   private
 
+  def self.tagged_recommended(user_id)
+    tagged_photos = self.tagged(user_id)
+    photos = self.get_friends_pictures(self.get_friends(tagged_photos, user_id))
+
+    photos - tagged_photos
+  end
+
   def self.user_photos_recommended(user_id)
     user_photos = User.find(user_id).photos
-    friends = self.get_friends(user_photos, user_id)
-
-    photos = self.get_friends_pictures(friends)
+    photos = self.get_friends_pictures(self.get_friends(user_photos, user_id))
 
     photos - user_photos
   end
 
   def self.favorite_recommended(user_id)
-    photos = []
     favorites = self.favorited(user_id)
-    friends = self.get_friends(favorites, user_id)
+    photos = self.get_friends_pictures(self.get_friends(favorites, user_id))
 
-    friends.each do |friend|
-      self.tagged(friend.id).each do |photo|
-        photos << photo
-      end
-    end
     photos - favorites
   end
 
