@@ -23,4 +23,18 @@ describe Photo do
       Photo.favorited(user.id).should eq [photo]
     end
   end
+
+  describe '.recommended' do
+    it 'will return all photos tagged with users who are also in pics the user has favorited' do
+      user1 = create(:user, :username => "Harold")
+      user2 = create(:user, :username => "Raekwon")
+      photo1 = create(:photo, :user_id => user1.id)
+      photo2 = create(:photo, :user_id => user1.id)
+      photo3 = create(:photo, :user_id => user1.id)
+
+
+      favorite = create(:favorite, :user_id => user.id, :photo_id => photo.id)
+      Photo.favorited(user.id).should eq [photo]
+    end
+  end
 end
