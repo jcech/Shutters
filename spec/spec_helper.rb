@@ -40,5 +40,6 @@ RSpec.configure do |config|
   # the seed, which is printed after each run
   #     --seed 1234
   config.include FactoryGirl::Syntax::Methods
+  config.include ActionDispatch::TestProcess
   config.order = "random"
 end

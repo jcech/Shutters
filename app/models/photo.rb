@@ -1,4 +1,5 @@
 class Photo < ActiveRecord::Base
+  has_many :favorites
   has_many :tags
   belongs_to :user
   validates :image, :presence => true

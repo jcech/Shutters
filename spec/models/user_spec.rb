@@ -7,6 +7,7 @@ describe User do
     user2.save.should eq false
   end
 
+  it { should have_many :favorites }
   it { should have_many :photos }
   it { should have_many :tags }
 end

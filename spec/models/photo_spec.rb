@@ -3,6 +3,7 @@ require 'pry'
 describe Photo do
   it { should have_many :tags }
   it { should belong_to :user }
+  it { should have_many :favorites }
 
   describe '.tagged' do
     it 'will return all photos where user is tagged' do
