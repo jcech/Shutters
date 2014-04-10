@@ -1,5 +1,5 @@
 <%= form_for @photo do |f| %>
-  <%= f.hidden_field :user_id, :value => @current_user.id %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
   <div id='form-input'>
   <%= f.file_field :image %>
   </div></br>

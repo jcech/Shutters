@@ -1,15 +1,15 @@
 <%= form_for @user do |f| %>
   <div id='form-input'>
-    <%= f.label :username, "Username" %>
+    <%= f.label :username, "Username" %></br>
     <%= f.text_field :username %>
   </div>
   <div id='form-input'>
-    <%= f.label :password, "Password" %>
+    <%= f.label :password, "Password" %></br>
     <%= f.password_field :password %>
   </div>
   <div id='form-input'>
-    <%= f.label :password_confirmation, "Password Confirmation" %>
+    <%= f.label :password_confirmation, "Password Confirmation" %></br>
     <%= f.password_field :password_confirmation %>
-  </div>
+  </div></br>
   <%= f.submit(:class => 'btn btn-success') %>
 <% end %>
