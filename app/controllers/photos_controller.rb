@@ -25,7 +25,7 @@ class PhotosController < ApplicationController
   end
 
   def create
-    @photo = Photo.new(user_params)
+    @photo = Photo.new(photo_params)
     if @photo.save
       redirect_to root_url, notice: "Nice Photo!"
     else
@@ -36,7 +36,7 @@ class PhotosController < ApplicationController
 
   private
 
-  def user_params
+  def photo_params
     params.require(:photo).permit(:user_id, :image)
   end
 end
