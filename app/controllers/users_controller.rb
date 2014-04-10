@@ -13,9 +13,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+  end
+
+  def update
+    current_user.update(user_params)
+    redirect_to root_url, notice: "Avatar updated."
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:username, :password, :password_confirmation)
+    params.require(:user).permit(:username, :password, :password_confirmation, :avatar)
   end
 end

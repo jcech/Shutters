@@ -5,7 +5,7 @@ Shutters::Application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: 'logout'
 
   resources :photos, :except => [:edit, :update]
-  resources :users, :only => [:new, :create]
+  resources :users, :only => [:new, :create, :show, :update]
   resources :sessions, :only => [:new, :create, :destroy]
   resources :tags, :only => :create
   resources :favorites, :only => [:create, :destroy]

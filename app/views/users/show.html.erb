@@ -1,0 +1,10 @@
+<h1 class="jumbotron"><%= current_user.username %>'s Profile</h1>
+<h4>Current Avatar:</h4>
+<%= image_tag(current_user.avatar.url(:medium)) %>
+<%= form_for current_user do |f| %>
+  <div id='form-input'>
+  <%= f.file_field :avatar %>
+  </div></br>
+  <%= f.submit 'Change Avatar', :class=> 'btn btn-danger' %>
+<% end %>
+<p><br><%= link_to 'Return to Photo Menu', photos_path, :class => 'btn btn-info' %></p>
