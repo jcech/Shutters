@@ -42,4 +42,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include ActionDispatch::TestProcess
   config.order = "random"
+  config.after(:suite) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/public/system/test"])
+  end
 end
