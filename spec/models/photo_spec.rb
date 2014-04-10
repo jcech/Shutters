@@ -28,9 +28,10 @@ describe Photo do
     it 'will return all photos tagged with users who are also in pics the user has favorited' do
       user1 = create(:user, :username => "Harold")
       user2 = create(:user, :username => "Raekwon")
-      photo1 = create(:photo, :user_id => user1.id)
-      photo2 = create(:photo, :user_id => user1.id)
-      photo3 = create(:photo, :user_id => user1.id)
+      user3 = create(:user, :username => "Harold's Mother")
+      photo1 = create(:photo, :user_id => user3.id)
+      photo2 = create(:photo, :user_id => user3.id)
+      photo3 = create(:photo, :user_id => user3.id)
       favorite = create(:favorite, :user_id => user1.id, :photo_id => photo1.id)
       tag = create(:tag, :user_id => user2.id, :photo_id => photo1.id)
       tag = create(:tag, :user_id => user2.id, :photo_id => photo2.id)
