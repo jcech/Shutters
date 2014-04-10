@@ -14,4 +14,13 @@ describe Photo do
       Photo.tagged(user.id).should eq [photo2]
     end
   end
+  describe '.favorited' do
+    it 'will return all photos that were favorited by the current user' do
+      user = create(:user, :username => "Will")
+      photo = create(:photo, :user_id => user.id)
+      photo2 = create(:photo)
+      favorite = create(:favorite, :user_id => user.id, :photo_id => photo.id)
+      Photo.favorited(user.id).should eq [photo]
+    end
+  end
 end

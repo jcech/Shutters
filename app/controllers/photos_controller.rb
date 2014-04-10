@@ -5,6 +5,8 @@ class PhotosController < ApplicationController
   def index
     if params[:tagged]
       @photos = Photo.tagged(current_user.id)
+    elsif params[:favorite]
+      @photos = Photo.favorited(current_user.id)
     else
       @photos = Photo.where(:user_id => current_user.id)
     end

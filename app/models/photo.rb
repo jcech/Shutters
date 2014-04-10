@@ -18,4 +18,11 @@ class Photo < ActiveRecord::Base
     photos
   end
 
+  def self.favorited(user_id)
+    photos = []
+    Favorite.where(:user_id => user_id).each do |favorite|
+      photos << favorite.photo
+    end
+    photos
+  end
 end
