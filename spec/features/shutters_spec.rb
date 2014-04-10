@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "the signup process" do
-    it "signs Oswaldo up" do
+  it "signs Oswaldo up" do
     visit '/'
     click_link 'Sign Up'
     fill_in 'Username', :with => 'Oswaldo'
@@ -15,25 +15,21 @@ end
 
 feature "the signin process" do
   before :each do
-    User.create(:username => 'Oswaldo', :password => 'oswaldo', :password_confirmation => 'oswaldo')
+    create(:user, :username => 'Oswaldo', :password => 'oswaldo', :password_confirmation => 'oswaldo')
   end
 
   it "signs Oswaldo in" do
     visit '/'
-
     fill_in 'Username', :with => 'Oswaldo'
     fill_in 'Password', :with => 'oswaldo'
-
     click_button 'Log In'
     expect(page).to have_content 'Logged in!'
   end
 
   it "signs Oswaldo out" do
     visit '/'
-
     fill_in 'Username', :with => 'Oswaldo'
     fill_in 'Password', :with => 'oswaldo'
-
     click_button 'Log In'
     click_link 'Log Out'
     expect(page).to have_content 'Log In'
@@ -42,11 +38,7 @@ end
 
 feature 'Photo adding' do
   before :each do
-    User.create(:username => 'Oswaldo', :password => 'oswaldo', :password_confirmation => 'oswaldo')
-    visit '/'
-    fill_in 'Username', :with => 'Oswaldo'
-    fill_in 'Password', :with => 'oswaldo'
-    click_button 'Log In'
+    login_user
   end
   it 'adds a photo' do
     click_link 'New Photo'
@@ -66,15 +58,8 @@ end
 
 feature 'tagging a photo' do
   before :each do
-    User.create(:username => 'Oswaldo', :password => 'oswaldo', :password_confirmation => 'oswaldo')
-    visit '/'
-    fill_in 'Username', :with => 'Oswaldo'
-    fill_in 'Password', :with => 'oswaldo'
-    click_button 'Log In'
-    click_link 'New Photo'
-    page.attach_file("photo_image", '/Users/epicodus/Documents/raccoon-tuxedo.jpg')
-    click_button 'Create Photo'
-    find("#photo").click
+    login_user
+    show_photo
   end
   it 'tags a photo' do
     find('#tag_user_id').find(:xpath, 'option[2]').select_option
@@ -85,15 +70,8 @@ end
 
 feature '(un)favoriting a photo' do
   before :each do
-    User.create(:username => 'Oswaldo', :password => 'oswaldo', :password_confirmation => 'oswaldo')
-    visit '/'
-    fill_in 'Username', :with => 'Oswaldo'
-    fill_in 'Password', :with => 'oswaldo'
-    click_button 'Log In'
-    click_link 'New Photo'
-    page.attach_file("photo_image", '/Users/epicodus/Documents/raccoon-tuxedo.jpg')
-    click_button 'Create Photo'
-    find("#photo").click
+    login_user
+    show_photo
   end
   it 'favorites a photo' do
     click_link 'Favorite'
