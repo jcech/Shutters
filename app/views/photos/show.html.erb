@@ -2,6 +2,11 @@
 
 <h3 class="jumbotron">Photo</h3>
 <p><%= link_to 'Photo Menu', photos_path, :class => 'btn btn-info' %>
+  <% if Favorite.exists(@photo.id, current_user.id) %>
+  <%= link_to 'Unfavorite', favorite_path(:favorite => {:photo_id => @photo.id, :user_id => current_user.id}), :class => 'btn btn-danger', method: 'delete'%>
+  <% else %>
+    <%= link_to 'Favorite', favorites_path(:favorite => {:photo_id => @photo.id, :user_id => current_user.id}), :class => 'btn btn-success', method: 'post'%>
+  <% end %>
   <%= form_for Tag.new, :url => tags_path do |f| %>
 
     <%= f.hidden_field :photo_id, :value => @photo.id %>

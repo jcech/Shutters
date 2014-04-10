@@ -82,3 +82,26 @@ feature 'tagging a photo' do
     expect(page).to have_content 'Users in this photo: Oswaldo'
   end
 end
+
+feature '(un)favoriting a photo' do
+  before :each do
+    User.create(:username => 'Oswaldo', :password => 'oswaldo', :password_confirmation => 'oswaldo')
+    visit '/'
+    fill_in 'Username', :with => 'Oswaldo'
+    fill_in 'Password', :with => 'oswaldo'
+    click_button 'Log In'
+    click_link 'New Photo'
+    page.attach_file("photo_image", '/Users/epicodus/Documents/raccoon-tuxedo.jpg')
+    click_button 'Create Photo'
+    find("#photo").click
+  end
+  it 'favorites a photo' do
+    click_link 'Favorite'
+    expect(page).to have_content 'Unfavorite'
+  end
+  it 'unfavorites a photo' do
+    click_link 'Favorite'
+    click_link 'Unfavorite'
+    expect(page).to have_content 'Favorite'
+  end
+end

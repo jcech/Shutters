@@ -21,3 +21,10 @@ FactoryGirl.define do
     association :photo, factory: :photo
   end
 end
+
+FactoryGirl.define do
+  factory :favorite, class: Favorite do
+    association :user, factory: :user, username: "Mac"
+    association :photo, factory: :photo
+  end
+end

@@ -8,6 +8,12 @@ class FavoritesController < ApplicationController
     end
   end
 
+  def destroy
+    @favorite = Favorite.where(:photo_id => params[:favorite][:photo_id], :user_id => params[:favorite][:user_id]).first
+    @favorite.destroy
+    redirect_to :back
+  end
+
   private
 
   def favorite_params
