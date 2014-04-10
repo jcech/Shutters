@@ -17,8 +17,12 @@ class UsersController < ApplicationController
   end
 
   def update
-    current_user.update(user_params)
-    redirect_to root_url, notice: "Avatar updated."
+
+    if params[:user][:avatar].nil?
+      redirect_to :back, alert: "Select an image to update your avatar."
+    else current_user.update(user_params)
+      redirect_to root_url, notice: "Avatar updated."
+    end
   end
 
   private
